@@ -20,9 +20,4 @@ export const env = cleanEnv(process.env, {
   HUBSPOT_API_KEY: str(),
   HUBSPOT_PIPELINE_ID: str({ default: "default" }),
   HUBSPOT_OWNER_ID: str({ default: "" }),
-
-  NEETO_CAL_API_KEY: str(),
-  NEETO_CAL_CONSULTORIA_MEETING_SLUG: str(),
-  NEETO_CAL_MENTORIA_MEETING_SLUG: str(),
-  NEETO_CAL_API_URL: str({ default: "https://api.neeto.com/v1" }),
 });
