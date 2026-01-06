@@ -13,10 +13,6 @@ export const env = cleanEnv(process.env, {
   MCP_SERVER_NAME: str({ default: "HubSpot MCP" }),
   MCP_SERVER_VERSION: str({ default: "1.0.0" }),
 
-  PLATI_API_KEY: str(),
-  PLATI_CHANNEL_ID: str(),
-  PLATI_WORKSPACE_ID: str(),
-
   HUBSPOT_API_KEY: str(),
   HUBSPOT_PIPELINE_ID: str({ default: "default" }),
   HUBSPOT_OWNER_ID: str({ default: "" }),

@@ -1,4 +1,3 @@
-import { ExtendedExtraInfo } from "@/core/adapters/sse_transport_adapter.js";
 import { BaseTool } from "@/core/contracts/tool.js";
 
 import { logger } from "@/core/app/logger.js";
@@ -15,7 +14,7 @@ class UpdateDealStageTool extends BaseTool {
     return schema;
   }
 
-  async handler(params: UpdateDealStageSchema, extra?: ExtendedExtraInfo) {
+  async handler(params: UpdateDealStageSchema) {
     logger.debug(
       "Updating deal stage called with params",
       JSON.stringify(params, null, 2)
@@ -23,9 +22,6 @@ class UpdateDealStageTool extends BaseTool {
     const { dealId, dealstage } = params;
 
     try {
-      const contact = await BaseTool.getContact(extra!);
-      logger.debug("Contact", JSON.stringify(contact, null, 2));
-
       await hubspot.updateDeal(dealId, {
         dealstage,
       });

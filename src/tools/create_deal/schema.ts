@@ -1,6 +1,7 @@
 import { z } from "zod";
 
 const schema = {
+  contactId: z.string().describe("ID do contato no HubSpot para associar ao deal"),
   dealname: z.string().describe("Nome do deal/oportunidade"),
   amount: z.string().optional().describe("Valor do deal"),
   dealstage: z
@@ -21,6 +22,7 @@ const schema = {
 };
 
 export type CreateDealSchema = {
+  contactId: string;
   dealname: string;
   amount?: string;
   dealstage: string;

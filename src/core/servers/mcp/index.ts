@@ -74,29 +74,6 @@ export const startMcpServer = async (app: Express) => {
         query: req.query,
       });
 
-      // Validação de workspace apenas para requisições não-initialize em POST
-      if (method === "POST" && !isInitializeRequest(req.body)) {
-        const workspaceId = req.headers["x-workspace-id"] as string | undefined;
-
-        if (workspaceId !== env.PLATI_WORKSPACE_ID) {
-          log.error("Invalid workspace ID", {
-            provided: workspaceId,
-            expected: env.PLATI_WORKSPACE_ID,
-            method: requestMethod,
-          });
-
-          res.status(401).json({
-            jsonrpc: "2.0",
-            error: {
-              code: -32000,
-              message: "Invalid workspace ID",
-            },
-            id: requestId,
-          });
-          return;
-        }
-      }
-
       // Extrai informações customizadas da requisição
       const customInfo = extractCustomInfo(req);
 

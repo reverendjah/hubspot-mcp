@@ -1,6 +1,7 @@
 import { z } from "zod";
 
 const schema = {
+  contactId: z.string().describe("ID do contato no HubSpot"),
   name: z.string().optional().describe("nome do usuário"),
   email: z.string().optional().describe("e-mail válido do usuário"),
   phone: z.string().optional().describe("telefone do usuário"),
@@ -22,6 +23,7 @@ const schema = {
 };
 
 export type UpdateContactSchema = {
+  contactId: string;
   name?: string;
   email?: string;
   phone?: string;

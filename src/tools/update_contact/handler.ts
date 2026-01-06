@@ -1,4 +1,3 @@
-import { ExtendedExtraInfo } from "@/core/adapters/sse_transport_adapter.js";
 import { BaseTool } from "@/core/contracts/tool.js";
 
 import { logger } from "@/core/app/logger.js";
@@ -15,34 +14,14 @@ class UpdateContactTool extends BaseTool {
     return schema;
   }
 
-  async handler(params: UpdateContactSchema, extra?: ExtendedExtraInfo) {
+  async handler(params: UpdateContactSchema) {
     logger.debug(
       "Updating contact called with params",
       JSON.stringify(params, null, 2)
     );
-    const { name, email, phone, patrimonio, capacidadeAporte, objetivo } = params;
+    const { contactId, name, email, phone, patrimonio, capacidadeAporte, objetivo } = params;
 
     try {
-      const contact = await BaseTool.getContact(extra!);
-      if (!contact.externalId) {
-        logger.warn(
-          "Contact does not have a HubSpot account created, call the create_contact tool first",
-          JSON.stringify(contact, null, 2)
-        );
-        return {
-          content: [
-            {
-              type: "text",
-              text: JSON.stringify({
-                message:
-                  "Contact does not have a HubSpot account created, call the create_contact tool first",
-              }),
-            },
-          ],
-        };
-      }
-      logger.debug("Contact", JSON.stringify(contact, null, 2));
-
       // Build properties object with only defined values
       const properties: Record<string, string> = {};
 
@@ -88,7 +67,7 @@ class UpdateContactTool extends BaseTool {
         };
       }
 
-      await hubspot.updateContact(contact.externalId, properties);
+      await hubspot.updateContact(contactId, properties);
 
       logger.debug(
         "Contact updated successfully",

@@ -1,6 +1,3 @@
-import { Plati } from "@/providers/plati/index.js";
-import { ExtendedExtraInfo } from "../adapters/sse_transport_adapter.js";
-
 export type BaseToolContext = {
   channelId: string;
   channelType: string;
@@ -20,15 +17,4 @@ export abstract class BaseTool implements BaseToolContract {
   abstract input(): Record<string, any>;
 
   abstract handler(params: Record<string, any>): Promise<any>;
-
-  static async getContact(extras: ExtendedExtraInfo) {
-    const contactId = extras?._meta?.contactId;
-    if (!contactId) {
-      throw new Error("Contact ID is required");
-    }
-
-    const result = await Plati.getContact(contactId);
-
-    return result;
-  }
 }
